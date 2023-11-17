@@ -1,6 +1,8 @@
 # RegexStash README
 
-A VS Code extension to stash all your data cleaning regexes.
+A VS Code sidebar to stash all your data cleaning regexes.
+
+![A list of regexes](image.png)
 
 ## Features
 

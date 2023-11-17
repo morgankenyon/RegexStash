@@ -2,7 +2,7 @@
   "name": "regexstash",
   "displayName": "RegexStash",
   "description": "Helping you clean data when you have to run a variety of regexes multiple times",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "engines": {
     "vscode": "^1.84.0"
   },
@@ -20,20 +20,20 @@
 		"viewsContainers": {
 			"activitybar": [
 				{
-					"id": "myextension-sidebar-view",
-					"title": "My Extension",
+					"id": "regexstash-sidebar-view",
+					"title": "RegexStash",
 					"icon": "media/icon.svg"
 				}
 			]
 		},
 		"views": {
-			"myextension-sidebar-view": [
+			"regexstash-sidebar-view": [
 				{
 					"type": "webview",
 					"id": "myextension-sidebar",
-					"name": "MyExtension",
+					"name": "RegexStash",
 					"icon": "media/icon.svg",
-					"contextualTitle": "MyExtension"
+					"contextualTitle": "Regex Playground"
 				}
 			]
 		},

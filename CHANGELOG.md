@@ -21,8 +21,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Moved location of index.html to fix sidebar crashing
 
-## [0.1.2] - 2023--11-16
+## [0.1.2] - 2023-11-16
 
 ### Removed
 
 - Removed `helloWorld` and `testReplace` commands, they were only used at beginning of project to help me learn VS Code extensions
+
+## [0.1.3] - 2023-11-16
+
+### Added
+
+- Added screenshot of regex stash to README
+
+### Changed
+
+- Removed most names of old tutorial extension
