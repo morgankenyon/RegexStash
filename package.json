@@ -39,16 +39,8 @@
 		},
     "commands": [
       {
-        "command": "regexstash.helloWorld",
-        "title": "Hello World"
-      },
-      {
         "command": "regexstash.replaceInFile",
         "title": "Replace In File"
-      },
-      {
-        "command": "regexstash.testReplace",
-        "title": "Test Replace"
       }
     ]
   },
