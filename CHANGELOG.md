@@ -14,3 +14,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Clearing entire saved state
 - Running each regex at a time
 - Saving your regexes across sessions
+
+## [0.1.1] - 2023-11-16
+
+### Fixed
+
+- Moved location of index.html to fix sidebar crashing
