@@ -36,3 +36,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### Changed
 
 - Removed most names of old tutorial extension
+
+## [0.1.4] - 2023-11-16
+
+### Changed
+
+- Added new screenshot of sidebar
