@@ -1,4 +1,4 @@
-# RegexStash README
+# RegexStash
 
 A VS Code sidebar to stash all your data cleaning regexes.
 

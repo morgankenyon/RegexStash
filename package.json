@@ -2,7 +2,7 @@
   "name": "regexstash",
   "displayName": "RegexStash",
   "description": "Helping you clean data when you have to run a variety of regexes multiple times",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "engines": {
     "vscode": "^1.84.0"
   },

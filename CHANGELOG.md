@@ -42,3 +42,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### Changed
 
 - Added new screenshot of sidebar
+
+## [0.1.4] - 2023-11-16
+
+### Changed
+
+- Changed H1 tag of README
