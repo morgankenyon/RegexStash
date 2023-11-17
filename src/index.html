@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{{resetStylesheet}}" rel="stylesheet">
+    <link href="{{vscodeStylesheet}}" rel="stylesheet">
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Regex Stash</h2>
+    <div>
+        <button class="btn" id="clear_stash" onClick="clearStash()"><i class="fa fa-exhange"></i>Clear</button>
+    </div>
+    <div>
+        <table id="regex_table">
+            <thead>
+                <tr>
+                    <th>Find</th>
+                    <th>Replace</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tbody>
+        </table>
+    </div>
+    <div>
+        <button class="btn" id="add_option" onClick="addOption()"><i class="fa fa-plus-circle"></i></button>
+    </div>
+
+
+    <script>
+        const vscode = acquireVsCodeApi();
+        function runRegex(number) {
+            const findText = document.getElementById('find_' + number).value;
+            const replaceText = document.getElementById('replace_' + number).value;
+
+            vscode.postMessage({
+                command: 'replace',
+                find: findText,
+                replace: replaceText
+            })
+        }
+
+        function clearStash()
+        {
+            const existingState = vscode.getState();
+            existingState.regexOptions = [];
+
+            document.querySelectorAll('.regex-row').forEach(e => e.remove());
+
+            addOptionWithLength(1);
+        }
+
+        function addOption() {
+            var length = document.getElementById("regex_table").rows.length
+            
+            addOptionWithLength(length);
+        }
+
+        function addOptionWithLength(length)
+        {
+            addOptionWithValues(length, "", "");
+            
+            addOptionToState(length, "", "");
+        }
+
+        function handleBlurEvent (event) {
+            
+            var input = this.value;
+
+            var identifier = event.target.id;
+            const parts = identifier.split("_");
+            updateOptionInState(parseInt(parts[1]), parts[0], input);
+        }
+
+        function addOptionWithValues(length, find, replace)
+        {
+            var tbodyRef = document.getElementById('regex_table').getElementsByTagName('tbody')[0]
+
+            // Insert a row at the end of table
+            var newRow = tbodyRef.insertRow();
+            newRow.classList.add("regex-row");
+
+            // find input insertion
+            var findCell = newRow.insertCell();
+
+            var findInput = document.createElement("input");
+            findInput.setAttribute("id", "find_" + length);
+            findInput.value = find;
+            findInput.addEventListener('blur', handleBlurEvent);
+
+            findCell.appendChild(findInput); 
+
+            // replace input insertion
+            var replaceCell = newRow.insertCell();
+
+            var replaceInput = document.createElement("input");
+            replaceInput.setAttribute("id", "replace_" + length); 
+            replaceInput.value = replace;
+            replaceInput.addEventListener('blur', handleBlurEvent);
+
+            replaceCell.appendChild(replaceInput);
+
+            // trigger insertion
+            var buttonCell = newRow.insertCell();
+
+            var iElement = document.createElement("i");
+            iElement.classList.add("fa");
+            iElement.classList.add("fa-exchange");
+
+            var button = document.createElement("button");
+            button.classList.add("btn");
+            button.setAttribute("id", "trigger_" + length);
+            button.setAttribute("onClick", "runRegex(" + length + ")");
+            button.appendChild(iElement);
+
+            buttonCell.appendChild(button);
+        }
+
+        function populateState(previousState)
+        {
+            previousState.regexOptions.forEach((element, index) => {
+                addOptionWithValues(index + 1, element.find, element.replace)
+            })
+        }
+
+        function updateOptionInState(num, type, value)
+        {
+            const existingState = vscode.getState();
+
+            const options = existingState.regexOptions;
+
+            if (num > options.length)
+            {
+                console.log("Cannot update number not in state");
+            }
+            else 
+            {
+                const option = options[num - 1];
+
+                if (type === "find")
+                {
+                    option.find = value;
+                } 
+                else if (type === "replace")
+                {
+                    option.replace = value;
+                }
+
+                options[num - 1] = option;
+                existingState.regexOptions = options;
+                vscode.setState(existingState);
+            }
+        }
+
+        function addOptionToState(num, find, replace)
+        {
+            const regexOption = {
+                num: num,
+                find: find,
+                replace: replace
+            }
+            
+            var existingState = vscode.getState();
+
+            if (existingState === undefined)
+            {
+                existingState = {
+                    regexOptions: []
+                }
+            }
+
+            existingState.regexOptions.push(regexOption);
+
+            console.log("addOptionToState");
+            console.log(JSON.stringify(existingState));
+            vscode.setState(existingState);
+        }
+
+        const previousState = vscode.getState();
+        if (previousState)
+        {
+            console.log("loading previous state");
+            populateState(previousState);
+        }
+        else 
+        {
+            console.log("loading new state");
+            addOptionWithLength(1);
+        }
+    </script>
+</body>
+</html>
